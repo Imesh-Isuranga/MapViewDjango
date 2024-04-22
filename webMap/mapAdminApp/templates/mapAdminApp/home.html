@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapDetails</title>
+</head>
+<body>
+    
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <script> 
+        let map
+    
+        function initMap() {
+            // Initialize the Google Map with a default center and zoom
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 37.7749, lng: -122.4194 }, // San Francisco
+                zoom: 10,
+            });
+    
+            // Add a click event listener to capture geolocation data
+            map.addListener('click', function (event) {
+                const lat = event.latLng.lat();
+                const lng = event.latLng.lng();
+                console.log("Clicked location:", lat, lng);
+    
+                // Send the geolocation data to Django
+                fetch('/geolocation/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({ latitude: lat, longitude: lng }),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            console.log("Geolocation data saved:", response.status);
+                        } else {
+                            console.error("Error saving geolocation data:", response.statusText);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error sending geolocation data:", error);
+                    });
+            });
+        }
+    
+        window.initMap = initMap;
+    
+    </script>
+    
+    <div class="pageholder">
+        <div class="titleholder"> 
+            <div class="title"> Google Maps API - Displaying Markers on the Map </div> 
+        </div>
+    
+        <div class="linkholder">
+            <div class="mapholder"> 
+                <div id="map" style="height: 400px; width: 100%;"> </div>
+    
+                <script async
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeHNMTy_QJmoL5IU9YdL0D8-QsrCbf3JY&callback=initMap">
+                </script>
+            </div>
+        </div>
+    
+        <!-- Table to display locations -->
+        <h2>Locations</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through locations to create table rows -->
+                {% for location in locations %}
+                    <tr>
+                        <td>{{ location.latitude }}</td>
+                        <td>{{ location.longitude }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+
+</body>
+</html>
