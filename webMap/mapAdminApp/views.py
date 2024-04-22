@@ -19,9 +19,6 @@ class HomeView(ListView):
     model = Locations
 
 
-def map_view(request):
-    return render(request, 'mapAdminApp/map.html')
-
 @method_decorator(csrf_exempt, name='dispatch')
 class GeolocationView(View):
     def post(self, request):
