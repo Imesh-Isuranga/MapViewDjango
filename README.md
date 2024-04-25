@@ -56,7 +56,7 @@ Once you have the API key, insert it into home.html at the following line:
 
 ```
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeHNMTy_QJmoL5IU9YdL0D8-QsrCbf3JY&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key={YOUR_GOOGLE_API_KEY}&callback=initMap">
 </script>
 ```
 Replace {Your_GOOGLE_API_KEY} with your actual Google Maps API key.
