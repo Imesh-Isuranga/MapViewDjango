@@ -8,7 +8,8 @@ Before running this app, make sure you have the following installed on your PC:
 
 - Python 3.x
 - Django
-- Google Maps API Key
+
+Also you need Google Maps API Key.
 
 ## Getting Started
 
