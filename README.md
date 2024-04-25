@@ -71,3 +71,7 @@ Visit http://127.0.0.1:8000/ in your web browser to see the app in action.
 
 ### 6. Accessing the App
 The app allows you to click on the Google Map and displays the clicked location data in a table. Make sure you have a stable internet connection while using the app.
+
+![](https://raw.githubusercontent.com/Imesh-Isuranga/MapViewDjango/main/1.png)
+
+
